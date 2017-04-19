@@ -1,5 +1,5 @@
 {
-  "name": "Twitter Sentiment Analysis",
+  "name": "TwitterSentimentAnalysis",
   "version": "1.0.0",
   "description": "A console app to analyse trending words on your twitter handle",
   "main": "app.js ",
