@@ -15,9 +15,9 @@ const rl = readline.createInterface({
 });
 
 
-var  help = [ 'help        ' + 'display this message.'.green
-           , 'error       ' + 'display an example error'.red
-           , 'q           ' + 'exit console.'.yellow
+var  help = [ 'help' + 'display this message.'.green
+           , 'error' + 'display an example error'.red
+           , 'quit ' + 'exit console.'.yellow
            ].join('\n')
   ;
 
@@ -55,7 +55,7 @@ rl.on('line', (line) => {
     console.log("Here's what an error might look like");
         JSON.parse('{ a: "bad JSON" }');
   }   
-  else if (line.trim() === 'error') {  
+  else if (line.trim() === 'quit') {  
         process.exit(0);
     }
   else {
