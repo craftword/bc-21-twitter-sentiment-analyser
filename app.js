@@ -10,9 +10,20 @@ var colors = require('colors') // npm install colors
 // Readline Configuration for the console 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout,
-  prompt: '#'
+  output: process.stdout
+  
 });
+
+
+// Twitter Requests Configuration 
+var Request = unirest.get('https://api.twitter.com/1.1/statuses/home_timeline.json');
+var obj = [];
+    Request.oauth({
+      consumer_key: 'sAHDFRjtCiRbsdc7ZlOTUx2o8',
+      consumer_secret: 'aedZLJl2kHN83Mq82RtdSyfABQfTTeR6kQzoGNB2Pt8sWyoqy9',
+      token: '220218633-Hyv4Ju8nWKu5CKUyW92G8FK5sX7zily8h37bkrF2',
+      token_secret: '2OR2kjp4MIs3qBbuZjfveP6okYXeQkgylkv0sSCjlFQKS'
+    });
 
 
 var  help = [ 'help' + 'display this message.'.green
@@ -46,7 +57,28 @@ function prompt() {
 
 rl.on('line', (line) => {
   if(line[0].trim() === '@') {
-     console.log("i love you");
+     
+      Request.query({
+      screen_name: line.slice(1),
+      include_entities: false, 
+      count:40
+    }).end(function (response) {
+       var tweets = response.body;
+              
+       for(i=0; i < tweets.length; i++) {
+            string = tweets[i].text;
+            b = string.replace(/(?:https?|ftp):\/\/[\n\S]+/g, ''); // remove the Url addresss in the message. 
+      //console.log( b + "----" + tweets[i].created_at);
+            obj.push({"text":b, "createdTime":tweets[i].created_at});
+
+        } 
+     // console.log(obj);
+      fs.writeFileSync("tweets.json", JSON.stringify(obj)) 
+
+     
+    });
+      
+
   }
   else if(line.trim() === 'help') {
      console.log(help.yellow);
