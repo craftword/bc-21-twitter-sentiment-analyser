@@ -106,3 +106,50 @@ process.on('uncaughtException', function(e) {
 });
 
 welcome();
+
+
+/////////////////// MORE FUNCTIONS /////////////////////////////////////////////////////////////////
+
+// REMOVE STOP WORDS /////////////////
+
+
+function removeStopWords(string) {
+    var x;
+    var y;
+    var word;
+    var stop_word;
+    var regex_str;
+    var regex;
+    var cleansed_string = string.valueOf();
+    var stopWords = ["a", "about", "above", "after", "again", "against", "all", "am", "an", "and", "any","are","aren't","as","at","be","because","been","before","being","below","between","both","but","by","can't","cannot","could","couldn't","did","didn't","do","does","doesn't","doing","don't","down","during","each","few","for","from","further","had","hadn't","has","hasn't","have","haven't","having","he","he'd","he'll","he's","her","here","here's","hers","herself","him","himself","his","how","how's","i","i'd","i'll","i'm","i've","if","in","into","is","isn't","it","it's","its","itself","let's","me","more","most","mustn't","my","myself","no","nor","not","of","off","on","once","only","or","other","ought","our","ours","ourselves","out","over","own","same","shan't","she","she'd","she'll","she's","should","shouldn't","so","some","such","than","that","that's","the","their","theirs","them","themselves","then","there","there's","these","they","they'd","they'll","they're","they've","this","those","through","to","too","under","until","up","very","was","wasn't","we","we'd","we'll","we're","we've","were","weren't","what","what's","when","when's","where","where's","which","while","who","who's","whom","why","why's","with","won't","would","wouldn't","you","you'd","you'll","you're","you've","your","yours","yourself","yourselves"];
+         
+    // Split out all the individual words in the phrase
+    words = cleansed_string.match(/[^\s]+|\s+[^\s+]$/g)
+ 
+    // Review all the words
+    for(x=0; x < words.length; x++) {
+        // For each word, check all the stop words
+        for(y=0; y < stopWords.length; y++) {
+            // Get the current word
+            word = words[x].replace(/\s+|[^a-z]+/ig, "");   // Trim the word and remove non-alpha
+             
+            // Get the stop word
+            stop_word = stopWords[y];
+             
+            // If the word matches the stop word, remove it from the keywords
+            if(word.toLowerCase() == stop_word) {
+                // Build the regex
+                regex_str = "^\\s*"+stop_word+"\\s*$";      // Only word
+                regex_str += "|^\\s*"+stop_word+"\\s+";     // First word
+                regex_str += "|\\s+"+stop_word+"\\s*$";     // Last word
+                regex_str += "|\\s+"+stop_word+"\\s+";      // Word somewhere in the middle
+                regex = new RegExp(regex_str, "ig");
+             
+                // Remove the word from the keywords
+                cleansed_string = cleansed_string.replace(regex, " ");
+            }
+        }
+    }
+    return cleansed_string.replace(/^\s+|\s+$/g, "");
+}
+
