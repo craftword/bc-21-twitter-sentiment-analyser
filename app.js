@@ -2,5 +2,7 @@
 
 var Twitter = require('twitter');
 var readline = require('readline');
-var jsonfile = require('jsonfile');
+var fs = require('fs');
 var ProgressBar = require('progress');
+
+
