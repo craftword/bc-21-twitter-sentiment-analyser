@@ -79,12 +79,10 @@ rl.on('line', (line) => {
      // read to count words 
        
        var content = JSON.parse(fs.readFileSync("tweets.json", "utf8"));
-       //console.log(content.toString());
+       
+       console.log(wordFreq(content.toString()));
                
-       for (i=0; i < content.length; i++) {
-
-          console.log(content[i]);
-       }
+           
      prompt();
      
     });
@@ -164,3 +162,16 @@ function removeStopWords(string) {
     return cleansed_string.replace(/^\s+|\s+$/g, "");
 }
 
+
+function wordFreq(string) {
+    var words = string.replace(/[.]/g, '').split(/\s/);
+    var freqMap = {};
+    words.forEach(function(w) {
+        if (!freqMap[w]) {
+            freqMap[w] = 0;
+        }
+        freqMap[w] += 1;
+    });
+
+    return freqMap;
+}
