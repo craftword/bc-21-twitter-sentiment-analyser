@@ -9,8 +9,8 @@ var colors = require('colors') // npm install colors
 
 // Readline Configuration for the console 
 const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+   input: process.stdin,
+   output: process.stdout
   
 });
 
@@ -26,9 +26,9 @@ var obj = [];
     });
 
 
-var  help = [ 'help' + 'display this message.'.green
-           , 'error' + 'display an example error'.red
-           , 'quit ' + 'exit console.'.yellow
+var  help = [ 'help' +    'display this message.'.green
+           , 'error' +    'display an example error'.red
+           , 'quit ' +    'exit console.'.yellow
            ].join('\n')
   ;
 
@@ -59,35 +59,57 @@ rl.on('line', (line) => {
   if(line[0].trim() === '@') {
      
       Request.query({
-      screen_name: line.slice(1),
-      include_entities: false, 
-      count:40
-    }).end(function (response) {
-       var tweets = response.body;
+          screen_name: line.slice(1),
+          include_entities: false, 
+          count:40
+      }).end(function (response) {
+          var tweets = response.body;
               
-       for(i=0; i < tweets.length; i++) {
-            string = tweets[i].text;
-            b = string.replace(/(?:https?|ftp):\/\/[\n\S]+/g, ''); // remove the Url addresss in the message. 
-      //console.log( b + "----" + tweets[i].created_at);
-            obj.push(removeStopWords(b));
+          for(i=0; i < tweets.length; i++) {
+               string = tweets[i].text;
+               b = string.replace(/(?:https?|ftp):\/\/[\n\S]+/g, ''); // remove the Url addresss in the message. 
+      
+               obj.push(removeStopWords(b));
            
-        } 
-     // console.log(obj);
-      fs.writeFileSync("tweets.json", JSON.stringify(obj)) 
+            } 
+           // console.log(obj);
+           fs.writeFileSync("tweets.json", JSON.stringify(obj)) 
 
 
-     // read to count words 
+           // read to count words 
        
-       var content = JSON.parse(fs.readFileSync("tweets.json", "utf8"));
-       var cleanString = content.toString().replace(/,|\W|\s/g, ' ')
-       var analyseTweet = sortObject(wordFreq(cleanString));
-       //for (i=0; i <= 10; i++) {
-            console.log(analyseTweet);
-               
-       // }    
-     prompt();
+            var content = JSON.parse(fs.readFileSync("tweets.json", "utf8"));
+            var cleanString = content.toString().replace(/,|\W|\s/g, ' ');
+            var furtherClean = cleanString.replace(/  +/g, ' ');
+            var analyseTweet = sortObject(wordFreq(furtherClean));
+            // Progress Bar //////////////////////////////////////////////
+            var green = '\u001b[42m \u001b[0m';
+            var red = '\u001b[41m \u001b[0m';
+
+            var bar = new ProgressBar(':bar :percent ', {
+                complete: green,
+                incomplete: red,
+                total: analyseTweet.length,
+                width:20
+                 })
+
+            var id = setInterval(function (){
+            bar.tick({
+                'file': analyseTweet[bar.curr]
+                 })
+            if (bar.complete) {
+                 console.log(analyseTweet);
+                 clearInterval(id);
+                   prompt();
+                   }
+                }, 200)
+                
+            
+              
+          
      
-    });
+       });
+
       
 
   }
@@ -175,19 +197,18 @@ function wordFreq(string) {
         freqMap[w] += 1;
     });
 
-
-
     return freqMap;
 }
 
+
 function sortObject(obj) {
   var sortable = [];
-for (var word in obj) {
-    sortable.push([word, obj[word]]);
-}
+   for (var word in obj) {
+      sortable.push([word, obj[word]]);
+    }
 
-sortable.sort(function(a, b) {
-    return a[1] - b[1];
-});
-  return sortable.reverse(); // returns a reverce sorted array
+   sortable.sort(function(a, b) {
+      return a[1] - b[1];
+    });
+    return sortable.reverse(); // returns a reverce sorted array
 }
