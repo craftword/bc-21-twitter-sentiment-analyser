@@ -81,10 +81,10 @@ rl.on('line', (line) => {
        var content = JSON.parse(fs.readFileSync("tweets.json", "utf8"));
        var cleanString = content.toString().replace(/,|\W|\s/g, ' ')
        var analyseTweet = sortObject(wordFreq(cleanString));
-       for (i=0; i<= 10; i++) {
-            console.log(analyseTweet[i]);
+       //for (i=0; i <= 10; i++) {
+            console.log(analyseTweet);
                
-        }    
+       // }    
      prompt();
      
     });
