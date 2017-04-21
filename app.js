@@ -69,12 +69,23 @@ rl.on('line', (line) => {
             string = tweets[i].text;
             b = string.replace(/(?:https?|ftp):\/\/[\n\S]+/g, ''); // remove the Url addresss in the message. 
       //console.log( b + "----" + tweets[i].created_at);
-            obj.push({"text":b, "createdTime":tweets[i].created_at});
-
+            obj.push(removeStopWords(b));
+           
         } 
      // console.log(obj);
       fs.writeFileSync("tweets.json", JSON.stringify(obj)) 
 
+
+     // read to count words 
+       
+       var content = JSON.parse(fs.readFileSync("tweets.json", "utf8"));
+       //console.log(content.toString());
+               
+       for (i=0; i < content.length; i++) {
+
+          console.log(content[i]);
+       }
+     prompt();
      
     });
       
