@@ -79,10 +79,12 @@ rl.on('line', (line) => {
      // read to count words 
        
        var content = JSON.parse(fs.readFileSync("tweets.json", "utf8"));
-       
-       console.log(wordFreq(content.toString()));
+       var cleanString = content.toString().replace(/,|\W|\s/g, ' ')
+       var analyseTweet = sortObject(wordFreq(cleanString));
+       for (i=0; i<= 10; i++) {
+            console.log(analyseTweet[i]);
                
-           
+        }    
      prompt();
      
     });
@@ -173,5 +175,19 @@ function wordFreq(string) {
         freqMap[w] += 1;
     });
 
+
+
     return freqMap;
+}
+
+function sortObject(obj) {
+  var sortable = [];
+for (var word in obj) {
+    sortable.push([word, obj[word]]);
+}
+
+sortable.sort(function(a, b) {
+    return a[1] - b[1];
+});
+  return sortable.reverse(); // returns a reverce sorted array
 }
