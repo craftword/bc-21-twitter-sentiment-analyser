@@ -2,8 +2,7 @@
 
 > Twitter Sentiment Analysis in the terminal.
 
-[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/craftword/bc-21-twitter-sentiment-analyser/LICENSE)
-[![Package Quality](http://npm.packagequality.com/shield/Twitter Sentiment Analysis.svg)](http://packagequality.com/#?package=Twitter Sentiment Analysis)
+[![MIT License](https://img.shields.io/badge/license-MIT_License-green.svg?style=flat-square)](https://github.com/craftword/bc-21-twitter-sentiment-analyser/master/LICENSE)
 
 
 
