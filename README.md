@@ -26,7 +26,7 @@ Run node app.js on you terminal
 
 You will see a welcome prompt shown below
 
-![snapshot](https://github.com/craftword/bc-21-twitter-sentiment-analyser/screenshot.png)
+![snapshot](https://github.com/craftword/bc-21-twitter-sentiment-analyser/master/screenshot.png)
 
 Enter your twitter handle @screen_name, example @bole20. NB: there must be @ before the screen name
 
