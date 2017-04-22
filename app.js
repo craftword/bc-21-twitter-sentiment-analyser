@@ -30,9 +30,8 @@ var obj = [];
     });
 
 
-var  help = [ 'help' +    'display this message.'.green
-           , 'error' +    'display an example error'.red
-           , 'quit ' +    'exit console.'.yellow
+var  help = [ 'help' +      'display this message.'.green
+             , 'quit ' +    'exit console.'.yellow
            ].join('\n')
   ;
 
@@ -42,11 +41,11 @@ var  help = [ 'help' +    'display this message.'.green
 
 // Welcome function as your enter the app
 function welcome() {
-  console.log([">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-  	        ,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Welcome To Twitter Sentiment Analysis App     >>>>>>>>>>>>>>>>>>>>>"
-            ,">>>>>>>>>>>>>>>>>>> Welcome, enter help if you're lost.  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+  console.log([">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+  	        ,">>>>>>>>>>>>>>>>>>>  Welcome To Twitter Sentiment Analysis App     >>>>>>>>>>>>>>>>>>>>>"
+            ,">>>>>>>>>>>>>>>>>>>  Welcome, enter help if you're lost.            >>>>>>>>>>>>>>>>>>>>>"
             ,">>>>>>>   To Begin using this app, Please Enter your twitter handle eg @bola20  >>>>>>>>>>".green
-            ,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+            ,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
             ,"                                                                                            "                                                                                                      
             ].join('\n').grey);
   prompt();
@@ -119,7 +118,7 @@ rl.on('line', (line) => {
                      clearInterval(id);
                      prompt();
                    }
-                }, 100)
+                }, 70)
                 
             
               
@@ -133,10 +132,7 @@ rl.on('line', (line) => {
   else if(line.trim() === 'help') {
      console.log(help.yellow);
    }
-  else if (line.trim() === 'error') {
-    console.log("Here's what an error might look like");
-        JSON.parse('{ a: "bad JSON" }');
-  }   
+  
   else if (line.trim() === 'quit') { 
         console.log('Have a great day!'); 
         process.exit(0);
