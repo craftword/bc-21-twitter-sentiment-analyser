@@ -38,9 +38,12 @@ var  help = [ 'help' +    'display this message.'.green
 
 // Welcome function as your enter the app
 function welcome() {
-  console.log([">>>> To Twitter Sentiment Analysis App"
-            , ">>>>> Welcome, enter .help if you're lost."
-            , ">>>>>>   To Begin using this app, Please type in your twitter handle eg @bola20".green
+  console.log([">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+  	        ,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  Welcome To Twitter Sentiment Analysis App     >>>>>>>>>>>>>>>>>>>>>"
+            ,">>>>>>>>>>>>>>>>>>> Welcome, enter help if you're lost.  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+            ,">>>>>>>   To Begin using this app, Please Enter your twitter handle eg @bola20  >>>>>>>>>>".green
+            ,">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+            ,"                                                                                            "                                                                                                      
             ].join('\n').grey);
   prompt();
 }
@@ -61,7 +64,7 @@ rl.on('line', (line) => {
       Request.query({
           screen_name: line.slice(1),
           include_entities: false, 
-          count:40
+          count:50
       }).end(function (response) {
           var tweets = response.body;
               
@@ -102,7 +105,7 @@ rl.on('line', (line) => {
                  clearInterval(id);
                    prompt();
                    }
-                }, 200)
+                }, 100)
                 
             
               
@@ -120,11 +123,12 @@ rl.on('line', (line) => {
     console.log("Here's what an error might look like");
         JSON.parse('{ a: "bad JSON" }');
   }   
-  else if (line.trim() === 'quit') {  
+  else if (line.trim() === 'quit') { 
+        console.log('Have a great day!'); 
         process.exit(0);
     }
   else {
-       console.log("Please you need to type in your twitter handle");
+       console.log("Please you need to type in your Correct twitter handle");
       
   }
   rl.prompt();
