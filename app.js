@@ -3,9 +3,13 @@ var fs = require('fs');
 var ProgressBar = require('progress');
 var readline = require('readline')
 var colors = require('colors') // npm install colors
+var Table = require('cli-table');
 
-
-
+var table = new Table({
+    head: ['Rank', 'Words and Frequencies']
+  , colWidths: [10, 30]
+  , style : {compact : true, 'padding-left' : 1}
+}); // Table for display result
 
 // Readline Configuration for the console 
 const rl = readline.createInterface({
@@ -85,25 +89,35 @@ rl.on('line', (line) => {
             var cleanString = content.toString().replace(/,|\W|\s/g, ' ');
             var furtherClean = cleanString.replace(/  +/g, ' ');
             var analyseTweet = sortObject(wordFreq(furtherClean));
+
+            // implementing table for the display of Rank and their Word Frequencies
+                                         
+                     for (k=0; k < analyseTweet.length; k++) {
+                     	let rank = k + 1;
+                     	table.push([rank, analyseTweet[k]]);
+                        
+                      }
+            
             // Progress Bar //////////////////////////////////////////////
             var green = '\u001b[42m \u001b[0m';
             var red = '\u001b[41m \u001b[0m';
 
             var bar = new ProgressBar(':bar :percent ', {
-                complete: green,
-                incomplete: red,
-                total: analyseTweet.length,
-                width:20
+                    complete: green,
+                    incomplete: red,
+                    total: analyseTweet.length,
+                    width:20
                  })
 
             var id = setInterval(function (){
             bar.tick({
-                'file': analyseTweet[bar.curr]
+                '    file': analyseTweet[bar.curr]
                  })
             if (bar.complete) {
-                 console.log(analyseTweet);
-                 clearInterval(id);
-                   prompt();
+            	     //console.log(vertical_table);
+            	     console.log(table.toString());
+                     clearInterval(id);
+                     prompt();
                    }
                 }, 100)
                 
