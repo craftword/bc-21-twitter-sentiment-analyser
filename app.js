@@ -20,7 +20,7 @@ const rl = readline.createInterface({
 
 
 // Twitter Requests Configuration 
-var Request = unirest.get('https://api.twitter.com/1.1/statuses/home_timeline.json');
+var Request = unirest.get('https://api.twitter.com/1.1/statuses/user_timeline.json');
 var obj = [];
     Request.oauth({
       consumer_key: 'sAHDFRjtCiRbsdc7ZlOTUx2o8',
